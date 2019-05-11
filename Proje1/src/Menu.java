@@ -55,25 +55,27 @@ public class Menu extends JFrame {
 		
 	}
 }
+
+
 class ActionAdapter implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().contentEquals("hp")) {
 			JOptionPane.showMessageDialog(null, "You need to collide cue ball with the other 2 ball to get point "
-					+ "You can adjust the hit power by pushing to mouse"
-					+ "0  button helps you to refresh the game"
-					+ "9 helps you to pause the game "
-					+ "Escape helps you to close the game"
-					+ "Who ever get 50 points first will win");
+					+ "\n You can adjust the hit power by pushing to mouse"
+					+ "\n 0  button helps you to refresh the game"
+					+ "\n9 helps you to pause the game "
+					+ "\nEscape helps you to close the game"
+					+ "\nWho ever get 50 points first will win");
 		}
 		else if(e.getActionCommand().contentEquals("cc")) {
 			JOptionPane.showMessageDialog(null, "You can use up down left and right keys to move white ball ");
 		
 		}
 		else if(e.getActionCommand().contentEquals("pp")) {
-			
+			new Impulse();
 		}
 		else if(e.getActionCommand().contentEquals("pv")) {
-			
+			new Impulse2();
 		}
 		else if(e.getActionCommand().contentEquals("on")) {
 			

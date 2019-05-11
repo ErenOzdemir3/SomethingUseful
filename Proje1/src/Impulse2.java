@@ -1,9 +1,6 @@
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -12,20 +9,14 @@ import java.awt.event.MouseMotionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
-public class Impulse implements MouseMotionListener, MouseListener, KeyListener {
+public class Impulse2 implements MouseMotionListener, MouseListener, KeyListener {
 
 //	private String ip= "localhost";
 //	private int port =10123;
@@ -60,7 +51,6 @@ public class Impulse implements MouseMotionListener, MouseListener, KeyListener 
 //	private final int HEIGHT=527;
 //	private Font smallerFont =new Font("Verdana",Font.BOLD,32);
 
-	boolean is1Turn, isTurn, isChangeTurn = true;
 	final int mRadius = 50;
 	final int keyForce = 1000;
 	final int maxF = 25000;
@@ -88,17 +78,8 @@ public class Impulse implements MouseMotionListener, MouseListener, KeyListener 
 	Power shoot = new Power();
 	Menu m = new Menu();
 
-	public Impulse() {
+	public Impulse2() {
 
-//		System.out.println("Please input the ip");
-//		ip =scanner.nextLine();
-//		System.out.println("Please input the port");
-//		port = scanner.nextInt();
-//		while(port<1 || port >65535) {
-//			System.out.println("the port you entered was invalid,please input another");
-//			port =scanner.nextInt(); 
-//		}
-//		if(!connect()) initializeserver();
 		m.initMenu();
 		m.setSize(300, 900);
 		m.setTitle("menu");
@@ -115,8 +96,6 @@ public class Impulse implements MouseMotionListener, MouseListener, KeyListener 
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 
-//		thread =new Thread(this,"pool game");
-//		thread.start();
 
 		ball[0] = new Atom(x + 150, y + height / 2, radius, mass, cor, corC, 0, 0);
 		ball[1] = new Atom(x + length - 200, y + height / 2 + 40, radius, mass, cor, corC, 0, 0);
@@ -130,70 +109,7 @@ public class Impulse implements MouseMotionListener, MouseListener, KeyListener 
 		ball[1].Renk(ball[0], ball[1], ball[2]);
 		ball[2].Renk(ball[0], ball[1], ball[2]);
 	}
-//	public void run() {
-//		while (true) {
-//			client();
-//			if(!circle &&!accepted) {
-//				listenforserverrequest();
-//			}
-//			
-//		}
-//	}
-//	private void listenforserverrequest() {
-//		Socket socket = null;
-//				try {
-//					socket =serverSocket.accept();
-//					dos = new DataOutputStream(socket.getOutputStream());
-//				    dis	= new DataInputStream(socket.getInputStream());
-//				    accepted = true;
-//				    System.out.println("cliet has requested to joın ,and we have accepted");
-//				}catch(IOException e) {
-//					e.printStackTrace(); 
-//				}
-//	}
-//	private void render(Graphics g) {
-//		if(uncommunicate) {
-//			g.setColor(Color.RED);
-//			g.setFont(smallerFont);
-//			Graphics2D g2 =(Graphics2D) g;
-//			g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-//	int stringWidth =g2.getFontMetrics().stringWidth(uncommunicateString);
-//	g.drawString(uncommunicateString,WIDTH/2-stringWidth/2,HEIGHT/2);
-//	return;
-//	}
-//	
-//	}
-//	private boolean connect() {
-//		try {
-//			socket = new Socket(ip,port);
-//			dos = new DataOutputStream(socket.getOutputStream());
-//		    dis	= new DataInputStream(socket.getInputStream());
-//		    accepted = true;
-//		
-//		}catch(IOException e) {
-//			System.out.println("Uanble to connect to the address:"+ip+":"+port+"statring a server");
-//			return false;
-//		}
-//		System.out.println("Succesfully connected to the server");
-//		return true;
-//	}
-//	private void initializeserver() {
-//		try {
-//			serverSocket = new ServerSocket(port,8,InetAddress.getByName(ip));
-//			
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//		}
-//		yourturn =true;
-//		circle =false;
-//	}
-//	
-//	
-//	public void client() {
-//		if(errors>=10) uncommunicate =true;            //bakılacak
-//		
-//	}
-
+ 
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		switch (key) {
@@ -205,7 +121,7 @@ public class Impulse implements MouseMotionListener, MouseListener, KeyListener 
 			break;
 		case KeyEvent.VK_0:
 			frame.setVisible(false);
-			new Impulse();
+			new Impulse2();
 			if (isPrint) // tekrardan baslamasını sağlayan tuş
 				System.out.println("Refresh");
 			break;
@@ -252,18 +168,14 @@ public class Impulse implements MouseMotionListener, MouseListener, KeyListener 
 
 	public void mouseReleased(MouseEvent e) {
 		// isTurn = false;
-		if (is1Turn) {
+	
 			shoot.interrupt();
 			ball[0].applyForce(xM, yM, mForce); // mouseu gücünü ayarladıktan gitmesini sağlayan foksiyon bu olmadan
 												// mouse pressed de çalışmıyor
 			mForce = 0;
 			draw.repaint();
-		} else {
-			shoot.interrupt();
-			ball[1].applyForce(xM, yM, mForce);
-			mForce = 0;
-			draw.repaint();
-		}
+		 
+
 
 	}
 
@@ -281,17 +193,15 @@ public class Impulse implements MouseMotionListener, MouseListener, KeyListener 
 		draw.repaint();
 	}
 
-	public static void main(String[] args) {
-		new Impulse();
-	}
+	
 
 	class Power extends Thread {
 		public void run() { // gücün artışı /gücün sınırı artış hızı gibi parametlerin ayarlandığı kısım
 			try {
-				if (isTurn) {
+				
 					for (; mForce <= maxF; mForce += incF) {
 						Thread.sleep(1000 / fps);
-					}
+					
 				}
 			} catch (InterruptedException e) {
 			}
@@ -328,7 +238,7 @@ public class Impulse implements MouseMotionListener, MouseListener, KeyListener 
 
 		public void paint(Graphics g) {
 			g.drawImage(Table, 40, 140, this);// masanın resmini çizdirdiği yer
-			if (is1Turn) {
+			
 				AffineTransform trans = new AffineTransform();
 				double angle = Math.atan2(xM - ball[0].x, -yM + ball[0].y) + Math.PI / 2.0d;
 				trans.translate(ball[0].x + 5, ball[0].y + 10); // rotate olmasını sağlayan kısım CALIS ÖNEMLİ SORU
@@ -337,25 +247,11 @@ public class Impulse implements MouseMotionListener, MouseListener, KeyListener 
 				AffineTransformOp op = new AffineTransformOp(trans, AffineTransformOp.TYPE_BILINEAR);
 
 				g.setColor(Color.black);
-				if (isTurn) {
+               	if((ball[0].isStationary())) { //tüm topların durmasına bak 
 					g.drawImage(op.filter(Cue, null), 0, 0, this);// cue stick
 					g.drawLine(xM, yM, (int) ball[0].x, (int) ball[0].y);// topun gittiği yeri gösteren çizgi
 				}
-			} else {
 
-				AffineTransform trans1 = new AffineTransform(); // 2.top için
-				double angle = Math.atan2(xM - ball[1].x, -yM + ball[0].y) + Math.PI / 2.0d;
-				trans1.translate(ball[1].x + 5, ball[1].y + 10); // rotate olmasını sağlayan kısım CALIS ÖNEMLİ SORU
-																	// GELİCEK
-				trans1.rotate(angle);
-				AffineTransformOp op = new AffineTransformOp(trans1, AffineTransformOp.TYPE_BILINEAR);
-
-				g.setColor(Color.black);
-				if (isTurn) {
-					g.drawImage(op.filter(Cue, null), 0, 0, this);// cue stick
-					g.drawLine(xM, yM, (int) ball[1].x, (int) ball[1].y);// topun gittiği yeri gösteren çizgi
-				}
-			}
 
 			g.setColor(Color.white);
 			for (int j = 0; j <= ball[0].radius; j++) {
@@ -388,18 +284,9 @@ public class Impulse implements MouseMotionListener, MouseListener, KeyListener 
 			g.fillRect(x + length / 2 - powerBarL / 2 + 1, y - 90 + 1, (powerBarL - 1) * mForce / maxF, powerBarW - 1);
 			g.setColor(Color.black);
 			g.drawString("Power: " + mForce, x + length / 2 - 20, y - 100);
-			if (is1Turn) {
-				g.setColor(Color.blue);
-				g.drawString("Player-1's turn", x + length / 2 - 35, y - 30);
-			} else {
-				g.setColor(Color.red);
-				g.drawString("Player-2's turn", x + length / 2 - 35, y - 30);
-			}
 			g.setColor(Color.blue);
 			g.drawString("Player-1: " + player1 + " points", x, y - 30);
-			g.setColor(Color.red);
-			g.drawString("Player-2: " + player2 + " points", x + length - 95, y - 30);
-			if (isPause)
+         	if (isPause)
 				g.drawString("PAUSED", x + length / 2 - 10, y + height / 2 - 5);
 		}
 	}
@@ -410,11 +297,9 @@ public class Impulse implements MouseMotionListener, MouseListener, KeyListener 
 			try {
 				while (true) {
 
-					if (is1Turn) {
 						if (ball[0].Kirmizi && ball[0].Sari) {
 							if (!checked) {
 								player1++;
-								isChangeTurn = false;
 							}
 
 							checked = true;
@@ -423,23 +308,8 @@ public class Impulse implements MouseMotionListener, MouseListener, KeyListener 
 						if (ball[0].stop()) {
 							checked = false;
 						}
-					}
-					else
-					{
-
-						if (ball[1].Kirmizi && ball[1].Beyaz) {
-							if (!checked) {
-								player2++;
-								isChangeTurn = false;
-							}
-
-							checked = true;
-
-						}
-						if (ball[1].stop()) {
-							checked = false;
-						}
-					}
+					
+				
 
 					for (int i = 0; i < ballNum; i++) {
 						for (int j = i + 1; j < ballNum; j++)
@@ -457,7 +327,6 @@ public class Impulse implements MouseMotionListener, MouseListener, KeyListener 
 						if (ball[i] != null)
 							ball[i].locate();
 					}
-					changeTurn();
 					draw.repaint();
 					Thread.sleep(1000 / fps);
 					while (isPause)
@@ -470,22 +339,6 @@ public class Impulse implements MouseMotionListener, MouseListener, KeyListener 
 
 		}
 
-		public void changeTurn() {
-			final boolean TEMP = isTurn;
-			setIsTurn();
-			if (TEMP == false && isTurn == true) { // turnı değiştiren kısım
-				if (isChangeTurn)
-					is1Turn = !is1Turn;
-				isChangeTurn = true;
-			}
-		}
-
-		public void setIsTurn() {
-			isTurn = true;
-			for (int i = 0; i < ballNum; i++) { // turnın doğruluğunu sorgulayan ksıım
-				if (!ball[i].isStationary())
-					isTurn = false;
-			}
-		}
+	
 	}
 }
